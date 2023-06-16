@@ -12,7 +12,8 @@ const Form = () => {
     imagem: '',
   });
 
-  const [errorMessage, setErrorMessage] = useState('');
+  const [message, setMessage] = useState('');
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setData({
@@ -31,22 +32,31 @@ const Form = () => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
-
-        
       });
   
       const responseData = await response.json();
   
       if (response.ok) {
         console.log('Data registered successfully');
-        setErrorMessage('');
+        setMessage('Oferta cadastrada com sucesso');
+        setIsSuccess(true);
+        setData({
+          segmento: '',
+          produto: '',
+          descricao: '',
+          preco: '',
+          cupom: '',
+          link: '',
+          imagem: '',
+        });
       } else {
-        setErrorMessage(responseData.message || 'Error registering data');
+        setMessage(responseData.message || 'Error registering data');
+        setIsSuccess(false);
       }
     } catch (error) {
-      setErrorMessage('An error occurred while registering the data.');
+      setMessage('An error occurred while registering the data.');
+      setIsSuccess(false);
     }
-    console.log(data);
   };
 
   return (
@@ -59,7 +69,7 @@ const Form = () => {
       <input name='link' value={data.link} onChange={handleChange} placeholder='Link' required />
       <input name='imagem' value={data.imagem} onChange={handleChange} placeholder='Imagem' required />
       <button type='submit'>Enviar</button>
-      {errorMessage && <p className="error">{errorMessage}</p>}
+      {message && <p className={isSuccess ? "success" : "error"}>{message}</p>}
     </form>
   );
 };
