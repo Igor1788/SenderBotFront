@@ -26,7 +26,7 @@ const Form = () => {
     e.preventDefault();
   
     try {
-      const response = await fetch('https://senderbot.onrender.com/cadastro', {
+      const response = await fetch('http://89.116.225.227:3001/cadastro', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
