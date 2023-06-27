@@ -26,7 +26,7 @@ const Form = () => {
     e.preventDefault();
   
     try {
-      const response = await fetch('http://gptconcursos.com.br:3001/cadastro', {
+      const response = await fetch('https://gptconcursos.com.br:3001/cadastro', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
